@@ -50,6 +50,7 @@ class ButtonWidget extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pushNamed(
                                 way,
+                                arguments: eventType,
                               );
                             },
                           ),

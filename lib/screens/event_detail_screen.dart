@@ -18,7 +18,7 @@ class EventDetailScreen extends StatefulWidget {
   const EventDetailScreen({super.key});
 
   @override
-  _EventDetailScreenState createState() => _EventDetailScreenState();
+  State<EventDetailScreen> createState() => _EventDetailScreenState();
 }
 
 class _EventDetailScreenState extends State<EventDetailScreen>

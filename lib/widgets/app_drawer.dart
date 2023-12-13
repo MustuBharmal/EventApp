@@ -1,10 +1,8 @@
 import 'package:event_app/provider/user_provider.dart';
 import 'package:event_app/screens/add_event_screen.dart';
-import 'package:event_app/screens/all_event_screen.dart';
+import 'package:event_app/screens/list_of_event_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../screens/past_event_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -46,7 +44,8 @@ class AppDrawer extends StatelessWidget {
                 title: const Text('All Events'),
                 onTap: () {
                   Navigator.of(context).pushNamed(
-                    AllEventScreen.routeNamed,
+                    ListOfEventScreen.routeName,
+                    arguments: 'All Events',
                   );
                 },
               ),
@@ -69,7 +68,7 @@ class AppDrawer extends StatelessWidget {
                   ),
                   title: const Text('Add Event'),
                   onTap: () {
-                    Navigator.of(context).pushNamed(AddEventScreen.routeName);
+                    Navigator.of(context).pushNamed(AddEventScreen.routeName,arguments: 'Add Event');
                   },
                 ),
               if (Provider.of<UserProvider>(context).userModel!.usertype! ==
@@ -80,9 +79,9 @@ class AppDrawer extends StatelessWidget {
                   Icons.dark_mode,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                title: const Text('Past Events'),
+                title: const Text('Past Event'),
                 onTap: () {
-                  Navigator.of(context).pushNamed(PastEventScreen.routeName);
+                  Navigator.of(context).pushNamed(ListOfEventScreen.routeName, arguments: 'Past Event');
                 },
               ),
               const Divider(),

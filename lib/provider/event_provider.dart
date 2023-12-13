@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../firebase_stuff/firestore_constant.dart';
 import '../models/event.dart';
 
 class EventProvider with ChangeNotifier {
   final List<EventModel> allEvent = [];
-  final List<EventModel> currEvent = [];
+
+  // void deleteEvent(String id) {
+  //   allEvent.removeWhere((element) => element.id == id);
+  // }
 
   Future<void> fetchEventData() async {
     allEvent.clear();
     final docRef = db.collection('Event');
-    await docRef.orderBy('rEdDate').get().then(
-      (ref) {
-        for (var element in ref.docs) {
-          allEvent.add(EventModel.fromSnapshot(element));
-        }
-      },
-      onError: (e) => print('Error getting document: $e'),
-    );
-    notifyListeners();
+    try{
+      await docRef.orderBy('rEdDate').get().then(
+            (ref) {
+          for (var element in ref.docs) {
+            allEvent.add(EventModel.fromSnapshot(element));
+          }
+        },
+        onError: (e) => print('Error getting document: $e'),
+      );
+      notifyListeners();
+    }catch(e){
+      print('Error getting documents: $e');
+    }
+
   }
 
   Future<void> addEventData(EventModel data) async {
@@ -36,7 +43,7 @@ class EventProvider with ChangeNotifier {
     }
   }
 
-  List<EventModel> get event2 {
+  List<EventModel> get event {
     return [...allEvent];
   }
 
@@ -54,5 +61,17 @@ class EventProvider with ChangeNotifier {
     List<EventModel> userList = [];
     userList.addAll(allEvent);
     return userList;
+  }
+
+  Future<void> updateEvent(String? id, EventModel editedEvent) async {
+    var col = db.collection('events');
+    col.doc('id').update(
+          editedEvent.toJson(),
+        );
+    notifyListeners();
+  }
+
+  void removeItem(String eventId) async {
+    await db.collection("Event").doc(eventId).delete();
   }
 }

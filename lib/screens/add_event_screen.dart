@@ -64,8 +64,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      final personId = ModalRoute.of(context)!.settings.arguments as dynamic;
-      if (personId != null) {
+      final personId = ModalRoute.of(context)!.settings.arguments as String;
+      if (personId != 'Add Event') {
         _editedEvent = Provider.of<EventProvider>(context).findById(personId);
       }
     }

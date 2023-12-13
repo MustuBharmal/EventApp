@@ -1,17 +1,16 @@
 import 'package:event_app/provider/event_provider.dart';
 import 'package:event_app/provider/user_provider.dart';
 import 'package:event_app/screens/add_event_screen.dart';
-import 'package:event_app/screens/all_event_screen.dart';
 import 'package:event_app/screens/auth_screen.dart';
 import 'package:event_app/screens/event_detail_screen.dart';
 import 'package:event_app/screens/home_screen.dart';
 import 'package:event_app/screens/notification_screen.dart';
-import 'package:event_app/screens/past_event_screen.dart';
 import 'package:event_app/screens/splash_screen.dart';
-import 'package:event_app/screens/upcoming_event_screen.dart';
+import 'package:event_app/screens/list_of_event_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -23,6 +22,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -90,12 +93,10 @@ class _MyAppState extends State<MyApp> {
         navigatorKey: navigatorKey,
         routes: {
           HomePage.routeNamed:(ctx)=>const HomePage(),
-          UpcomingEventScreen.routeName: (ctx) => const UpcomingEventScreen(),
+          ListOfEventScreen.routeName: (ctx) => const ListOfEventScreen(),
           EventDetailScreen.routeName: (ctx) => const EventDetailScreen(),
           AddEventScreen.routeName: (ctx) => const AddEventScreen(),
           NotificationsScreen.routeName: (ctx) => const NotificationsScreen(),
-          PastEventScreen.routeName: (ctx) => const PastEventScreen(),
-          AllEventScreen.routeNamed: (ctx) => const AllEventScreen(),
           // AuthScreen.routeName: (ctx) => const AuthScreen(),
         },
       ),

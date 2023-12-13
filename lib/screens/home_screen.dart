@@ -1,6 +1,7 @@
+
+import 'package:event_app/provider/event_provider.dart';
 import 'package:event_app/provider/user_provider.dart';
-import 'package:event_app/screens/past_event_screen.dart';
-import 'package:event_app/screens/upcoming_event_screen.dart';
+import 'package:event_app/screens/list_of_event_screen.dart';
 import 'package:event_app/widgets/button_widget.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -48,18 +49,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
-        title: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-          child: const Text(
-            'Eventify',
-            style: TextStyle(
-              // color: Theme.of(context).colorScheme.primary,
-              fontSize: 24,
-              fontWeight: FontWeight.w400,
-            ),
+        title: const Text(
+          'Eventify',
+          style: TextStyle(
+            // color: Theme.of(context).colorScheme.primary,
+            fontSize: 24,
+            fontWeight: FontWeight.w400,
           ),
         ),
         actions: <Widget>[
@@ -90,20 +85,17 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   ImageSlider(),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   Column(
                     children: [
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, UpcomingEventScreen.routeName);
+                              context, ListOfEventScreen.routeName,arguments: 'Upcoming Event');
                         },
                         child: Row(
                           children: [
                             ButtonWidget(imageString1, "Upcoming Event",
-                                UpcomingEventScreen.routeName),
+                                ListOfEventScreen.routeName),
                             Column(
                               children: [
                                 titleSection('Upcoming Event',
@@ -116,12 +108,12 @@ class _HomePageState extends State<HomePage> {
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(
-                              context, PastEventScreen.routeName);
+                              context, ListOfEventScreen.routeName,arguments: "Past Event");
                         },
                         child: Row(
                           children: [
                             ButtonWidget(imageString2, "Past Event",
-                                PastEventScreen.routeName),
+                                ListOfEventScreen.routeName),
                             titleSection('Past Event',
                                 'A past event is an event\nthat has already happened\n& is no longer in the present\nor future.'),
                           ],
@@ -134,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, AddEventScreen.routeName);
+                                context, AddEventScreen.routeName,arguments: 'Add Event');
                           },
                           child: Row(
                             children: [
